@@ -1,0 +1,51 @@
+<div class="demo-app">
+  <div class="demo-app-main">
+    <div class="demo-toggle-button-container">
+      <button
+        class="toggle-button"
+        [class.active]="calendarVisible()"
+        (click)="handleCalendarToggle()"
+      >
+        Toggle Whole Calendar
+      </button>
+
+      <button
+        class="toggle-button"
+        [class.active]="calendarOptions().weekends"
+        (click)="handleWeekendsToggle()"
+      >
+        Toggle Weekends
+      </button>
+    </div>
+
+    <div class="full-cal">
+      <full-calendar *ngIf="calendarVisible()" [options]="calendarOptions()">
+        <ng-template #eventContent let-arg>
+          <b>{{ arg.event.title }}</b>
+          <i>{{ arg.timeText }}</i>
+        </ng-template>
+      </full-calendar>
+    </div>
+  </div>
+
+  <div class="demo-app-sidebar-container">
+    <div class="demo-app-sidebar-card">
+      <h2>Instructions</h2>
+      <ul>
+        <li>Select dates and you will be prompted to create a new event</li>
+        <li>Drag, drop, and resize events</li>
+        <li>Click an event to delete it</li>
+      </ul>
+    </div>
+
+    <div class="demo-app-sidebar-card events-list">
+      <h2>All Events ({{ currentEvents().length }})</h2>
+      <ul>
+        <li *ngFor="let event of currentEvents()">
+          <b>{{ event.title }}</b>
+          <i>{{ event.startStr }}</i>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
